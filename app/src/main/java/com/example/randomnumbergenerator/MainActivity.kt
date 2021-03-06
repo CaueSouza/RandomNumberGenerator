@@ -6,16 +6,15 @@ import android.text.TextWatcher
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var button: Button
-    lateinit var minimumEditText: EditText
-    lateinit var maximumEditText: EditText
-    lateinit var resultEditText: EditText
-    lateinit var quantityEditText: EditText
+    private lateinit var button: Button
+    private lateinit var minimumEditText: EditText
+    private lateinit var maximumEditText: EditText
+    private lateinit var resultEditText: EditText
+    private lateinit var quantityEditText: EditText
 
     private val textWatcher = DynamicTextWatcher(
         onChanged = { _, _, _, _ ->
@@ -48,21 +47,14 @@ class MainActivity : AppCompatActivity() {
 
         button.setOnClickListener {
             val minimumValue = minimumEditText.text.toString().toInt()
-            val maximumValue = maximumEditText.text.toString().toInt().plus(1)
+            val maximumValue = maximumEditText.text.toString().toInt()
             val quantity = quantityEditText.text.toString().toInt()
 
             printAllNumbers(generateXNumbers(minimumValue, maximumValue, quantity))
-
-            val diff = maximumValue - minimumValue
-            val timeStamp = System.currentTimeMillis()
-
-            val finalNumber = (timeStamp % diff) + minimumValue
-            Toast.makeText(applicationContext, "Your Number is: $finalNumber", Toast.LENGTH_SHORT)
-                .show()
         }
     }
 
-    fun generateXNumbers(start: Int, end: Int, x: Int): ArrayList<Int> {
+    private fun generateXNumbers(start: Int, end: Int, x: Int): ArrayList<Int> {
         val array = arrayListOf<Int>()
         var i = 0
 
@@ -78,7 +70,7 @@ class MainActivity : AppCompatActivity() {
         return array
     }
 
-    fun printAllNumbers(numbers: ArrayList<Int>) {
+    private fun printAllNumbers(numbers: ArrayList<Int>) {
         resultEditText.text.clear()
 
         for (i in 0 until numbers.size) {
